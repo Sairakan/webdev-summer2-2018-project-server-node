@@ -1,11 +1,10 @@
 var mongoose = require('mongoose');
 
 var userSchema = mongoose.Schema({
-    username: String,
+    email: { type : String , unique : true, required : true, dropDups: true },
     password: String,
     firstName: String,
     lastName: String,
-    email: String,
     phone: Number,
     userType: {
         type: String,
@@ -14,7 +13,8 @@ var userSchema = mongoose.Schema({
           'PRODUCER',
           'RETAILER',
           'BUYER'
-        ]
+        ],
+        default: 'BUYER'
     }
 }, { collection: 'user' });
 
