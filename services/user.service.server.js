@@ -22,15 +22,19 @@ module.exports = (app) => {
             });
     }
     const login = (req, res) => {
-        var username = req.body.username;
-        var password = req.body.password;
-        userModel.findUserByCredentials(username, password)
+        var email = req.body.email;
+
+        userModel.findUserByEmail(email)
             .then(user => {
                 if (user) {
                     req.session['currentUser'] = user;
                     res.send(user);
                 } else {
-                    res.sendStatus(0);
+                    const newUser = {
+                        email: email
+                    };
+                return userModel
+                    .createUser(newUser)
                 }
             });
     }
