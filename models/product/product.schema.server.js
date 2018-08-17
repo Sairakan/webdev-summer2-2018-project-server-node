@@ -16,11 +16,12 @@ var productSchema = mongoose.Schema({
     qr: String,
     url: String,
     image: String,
-    labTest: false,
-    thc: false,
-    cbd: false,
-    cannabis: false,
-    hashOil: false
+    labTest: String,
+    thc: String,
+    cbd: String,
+    cannabis: String,
+    hashOil: String,
+    active: Boolean
 }, { collection: 'product' });
 
 module.exports = productSchema;
