@@ -14,7 +14,8 @@ var orderSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ProductModel'
         },
-        count: Number
+        count: Number,
+        pricePerUnit: Number
     }],
     status: {
         type: String,

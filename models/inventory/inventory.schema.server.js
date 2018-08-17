@@ -10,7 +10,8 @@ var inventorySchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ProductModel'
         },
-        count: Number
+        count: Number,
+        pricePerUnit: Number
     }]
 }, { collection: 'inventory' });
 

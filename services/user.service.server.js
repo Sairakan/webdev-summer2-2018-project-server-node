@@ -3,13 +3,8 @@ module.exports = (app) => {
     var userModel = require('../models/user/user.model.server');
 
     const register = (req, res) => {
-        var username = req.body.username;
-        var password = req.body.password;
-        var newUser = {
-            username: username,
-            password: password
-        };
-        userModel.findUserByUsername(username)
+        let newUser = req.body;
+        userModel.findUserByUsername(newUser.username)
             .then(user => {
                 if (!user) {
                     return userModel
@@ -22,8 +17,8 @@ module.exports = (app) => {
             });
     }
     const login = (req, res) => {
-        var username = req.body.username;
-        var password = req.body.password;
+        let username = req.body.username;
+        let password = req.body.password;
         userModel.findUserByCredentials(username, password)
             .then(user => {
                 if (user) {
