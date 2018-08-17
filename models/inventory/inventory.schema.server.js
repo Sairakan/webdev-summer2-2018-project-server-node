@@ -6,12 +6,9 @@ var inventorySchema = mongoose.Schema({
         ref: 'UserModel'
     },
     items: [{
-        product: {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'ProductModel'
-        },
-        count: Number
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'ProductModel'
     }]
-}, { collection: 'inventory' });
+}, {collection: 'inventory'});
 
 module.exports = inventorySchema;
