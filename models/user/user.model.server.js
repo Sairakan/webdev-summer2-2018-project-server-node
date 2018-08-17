@@ -24,6 +24,10 @@ const updateUser = (userId, newUser) => {
     return userModel.update({ _id: userId }, { $set: newUser });
 }
 
+const findUserByEmail = (email) => {
+    return userModel.findOne({ email: email});
+}
+
 module.exports = {
     findAllUsers,
     findUserById,
@@ -31,5 +35,6 @@ module.exports = {
     findUserByCredentials,
     createUser,
     deleteUser,
-    updateUser
+    updateUser,
+    findUserByEmail
 };
