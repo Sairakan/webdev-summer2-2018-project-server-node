@@ -13,6 +13,6 @@ var inventorySchema = mongoose.Schema({
         count: Number,
         pricePerUnit: Number
     }]
-}, { collection: 'inventory' });
+}, {collection: 'inventory'});
 
 module.exports = inventorySchema;

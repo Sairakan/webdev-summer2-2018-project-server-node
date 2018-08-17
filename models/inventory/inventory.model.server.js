@@ -11,7 +11,7 @@ function findAllInventories() {
 }
 
 function findInventoryByOwner(ownerId) {
-    return inventoryModel.find({ _id: ownerId });
+    return inventoryModel.find({ owner: ownerId }).populate('items').exec();
 }
 
 function findInventoriesWithProduct(product) {
@@ -26,11 +26,25 @@ function deleteInventory(inventoryId) {
     return inventoryModel.remove({ _id: inventoryId });
 }
 
+function addProductToInventory (inventoryId, productId) {
+    return inventoryModel.update({_id: inventoryId}, {
+        $push: {items: productId}
+    });
+}
+
+function deleteProductFromInventory (inventoryId, productId) {
+    return inventoryModel.update({_id: inventoryId}, {
+        $pull: {items: productId}
+    });
+}
+
 module.exports = {
     createInventory,
     findAllInventories,
     findInventoryByOwner,
     findInventoriesWithProduct,
     updateInventory,
-    deleteInventory
+    deleteInventory,
+    addProductToInventory,
+    deleteProductFromInventory
 };

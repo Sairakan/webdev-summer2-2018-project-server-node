@@ -21,6 +21,16 @@ module.exports = (app) => {
             .then(inventory => res.send(inventory));
     }
 
+    function deleteProductFromInventory(req, res) {
+        inventoryModel.deleteProductFromInventory(req.params.inventoryId, req.params.productId)
+            .then(inventory => res.send(inventory));
+    }
+
+    function addProductToInventory(req, res) {
+        inventoryModel.addProductToInventory(req.params.inventoryId, req.params.productId)
+            .then(inventory => res.send(inventory));
+    }
+
     function deleteInventory(req, res) {
         inventoryModel.deleteInventory(req.params.inventoryId)
             .then(result => res.send(result));
@@ -31,9 +41,17 @@ module.exports = (app) => {
             .then(inventories => res.send(inventories));
     }
 
+    function findAllInventories(req, res) {
+        inventoryModel.findAllInventories()
+            .then(result => res.send(result));
+    }
+
     app.post('/api/inventory', createInventory);
     app.get('/api/inventory/:userId', findInventoryByOwner);
     app.put('/api/inventory/:inventoryId', updateInventory);
+    app.put('/api/inventory/:inventoryId/product/:productId', addProductToInventory);
     app.delete('/api/inventory/:inventoryId', deleteInventory);
     app.get('/api/inventory/product/:productId', findInventoriesWithProduct);
+    app.get('/api/inventory', findAllInventories);
+    app.delete('/api/inventory/:inventoryId/product/:productId', deleteProductFromInventory);
 }
