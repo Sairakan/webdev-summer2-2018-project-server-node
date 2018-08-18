@@ -15,8 +15,10 @@ function findInventoryByOwner(ownerId) {
     return inventoryModel.find({ owner: ownerId }).populate('items').exec();
 }
 
-function findInventoriesWithProduct(product) {
-    return inventoryModel.find({ 'items.ocpc': product.ocpc });
+function findInventoriesWithProduct(productId) {
+    return inventoryModel.find({ 'items.product': productId })
+        .populate('items.product')
+        .populate('owner');
 }
 
 function updateInventory(inventoryId, newInventory) {

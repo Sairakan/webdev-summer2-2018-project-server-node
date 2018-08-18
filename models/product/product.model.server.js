@@ -27,8 +27,11 @@ function findProductByOCPC(ocpc) {
 }
 
 function setActive(productId) {
-    console.log(productId);
-    return productModel.update({ '_id': productId }, { $set: { 'active': true } }, error => console.log(error));
+    return productModel.update({ '_id': productId }, { $set: { 'active': true } }, (err, raw) => { });
+}
+
+function findAllActiveProducts() {
+    return productModel.find({ active: true });
 }
 
 module.exports = {
@@ -38,5 +41,6 @@ module.exports = {
     deleteProduct,
     findAllProducts,
     findProductByOCPC,
-    setActive
+    setActive,
+    findAllActiveProducts
 };

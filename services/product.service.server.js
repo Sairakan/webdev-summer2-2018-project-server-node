@@ -3,7 +3,7 @@ module.exports = (app) => {
     let productModel = require('../models/product/product.model.server');
 
     function findAllActiveProducts(req, res) {
-        return productModel.findAllProducts({ active: true })
+        return productModel.findAllActiveProducts()
             .then(products => res.send(products));
     }
 
@@ -32,7 +32,7 @@ module.exports = (app) => {
             .then(result => res.send(result));
     }
 
-    app.get('/api/product', findAllActiveProducts);
+    app.get('/api/product/active', findAllActiveProducts);
     app.get('/api/product/:productId', findProductById);
     app.post('/api/product', createProduct);
     app.put('/api/product/:productId', updateProduct);
