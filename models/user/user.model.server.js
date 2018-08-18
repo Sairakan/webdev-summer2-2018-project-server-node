@@ -22,11 +22,16 @@ const deleteUser = (userId) => {
     return userModel.remove({ _id: userId });
 }
 const updateUser = (userId, newUser) => {
+    delete newUser._id;
     return userModel.update({ _id: userId }, { $set: newUser });
 }
 
 const findUserByEmail = (email) => {
     return userModel.findOne({ email: email});
+}
+
+const findUserByEmailAndPassword = (email, password) => {
+    return userModel.findOne({ email: email, password: password});
 }
 
 module.exports = {
@@ -37,5 +42,6 @@ module.exports = {
     createUser,
     deleteUser,
     updateUser,
-    findUserByEmail
+    findUserByEmail,
+    findUserByEmailAndPassword
 };
