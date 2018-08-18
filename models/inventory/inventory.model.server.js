@@ -39,12 +39,14 @@ function deleteProductFromInventory (inventoryId, productId) {
     });
 }
 
-function findItemInInventory(inventoryId, id) {
-    return inventoryModel.find({'_id': inventoryId, 'items._id': id }).populate('items.product').exec();
+function findItemInInventory(id) {
+    return inventoryModel.find({'items._id': id }).populate('items.product').exec();
 }
 
-function updateInventoryProduct(id, newItem) {
-    return inventoryModel.update({ 'items._id': id }, { $set: newItem });
+function updateInventoryProduct(inventoryId, itemId, product) {
+    return this.deleteProductFromInventory(inventoryId, itemId)
+        .then(inv => this.addProductToInventory(inventoryId, product))
+
 }
 
 module.exports = {

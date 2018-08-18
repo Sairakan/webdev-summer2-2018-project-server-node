@@ -43,12 +43,12 @@ module.exports = (app) => {
     }
 
     function findItemInInventory(req, res) {
-        inventoryModel.findItemInInventory(req.params.inventoryId, req.params.id)
+        inventoryModel.findItemInInventory(req.params.id)
             .then(result => res.send(result));
     }
 
     function updateInventoryProduct(req, res) {
-        inventoryModel.updateInventoryProduct(req.params.id, req.body)
+        inventoryModel.updateInventoryProduct(req.params.inventoryId, req.params.id, req.body)
             .then(inventory => res.send(inventory));
     }
 
@@ -59,6 +59,6 @@ module.exports = (app) => {
     app.delete('/api/inventory/:inventoryId', deleteInventory);
     app.get('/api/inventory', findAllInventories);
     app.delete('/api/inventory/:inventoryId/product/:productId', deleteProductFromInventory);
-    app.get('/api/inventory/:inventoryId/item/:id', findItemInInventory);
-    app.put('/api/inventory/item/:id', updateInventoryProduct);
+    app.get('/api/inventory/item/:id', findItemInInventory);
+    app.put('/api/inventory/:inventoryId/item/:id', updateInventoryProduct);
 }
