@@ -22,32 +22,37 @@ module.exports = (app) => {
 
     const login = (req, res) => {
         var email = req.body.email;
+        var isSocialLogin = req.body.isSocialLogin;
 
-        userModel.findUserByEmail(email)
-            .then(user => {
-                if (user) {
-                    req.session['currentUser'] = user;
-                    res.send(user);
-                } else {
-                    const newUser = {
-                        email: email
-                    };
-                return userModel
-                    .createUser(newUser)
-                }
-            });
+        if (isSocialLogin) {
+            userModel.findUserByEmail(email)
+                .then(user => {
+                    if(user) {
+                        req.session['currentUser'] = user;
+                        res.send(user);
+                    } else {
+                        res.send(null);
+                    }
+            })
+        } else {
+            var password = req.body.password
+            userModel.findUserByEmailAndPassword(email, password)
+                .then(user => {
+                    if(user) {
+                        req.session['currentUser'] = user;
+                        res.send(user);
+                    } else {
+                        res.send(null);
+                    }
+            })
+        }
     }
     const logout = (req, res) => {
         req.session.destroy();
         res.sendStatus(200);
     }
     const updateUser = (req, res) => {
-        userModel.updateUser(req.body._id, {
-            username: req.body.username,
-            firstName: req.body.firstName,
-            lastName: req.body.lastName,
-            email: req.body.email
-        })
+        userModel.updateUser(req.body._id, req.body)
             .then(response => {
                 if (response) {
                     req.session['currentUser'] = req.body;
