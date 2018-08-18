@@ -7,7 +7,7 @@ function createProduct(product) {
 }
 
 function findProductById(productId) {
-    return productModel.find({ _id: productId });
+    return productModel.findOne({ _id: productId });
 }
 
 function updateProduct(productId, newProduct) {
@@ -23,7 +23,12 @@ function findAllProducts() {
 }
 
 function findProductByOCPC(ocpc) {
-    return productModel.find({ocpc: ocpc});
+    return productModel.find({ ocpc: ocpc });
+}
+
+function setActive(productId) {
+    console.log(productId);
+    return productModel.update({ '_id': productId }, { $set: { 'active': true } }, error => console.log(error));
 }
 
 module.exports = {
@@ -32,5 +37,6 @@ module.exports = {
     updateProduct,
     deleteProduct,
     findAllProducts,
-    findProductByOCPC
+    findProductByOCPC,
+    setActive
 };

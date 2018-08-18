@@ -7,7 +7,8 @@ function createInventory(inventory) {
 }
 
 function findAllInventories() {
-    return inventoryModel.find();
+    return inventoryModel.find()
+        .populate('items.product');
 }
 
 function findInventoryByOwner(ownerId) {
