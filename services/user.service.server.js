@@ -3,19 +3,23 @@ module.exports = (app) => {
     var userModel = require('../models/user/user.model.server');
 
     const register = (req, res) => {
-        let newUser = req.body;
-        userModel.findUserByUsername(newUser.username)
-            .then(user => {
-                if (!user) {
+       var user = req.body;
+        userModel.findUserByEmail(user.email)
+            .then(user2 => {
+                if (!user2) {
                     return userModel
-                        .createUser(newUser)
+                        .createUser(user)
                 }
+                else{
+                    res.send(null);
+        }
             })
-            .then(user => {
-                req.session['currentUser'] = user;
-                res.send(user);
+            .then(user1 => {
+                req.session['currentUser'] = user1;
+                res.send(user1);
             });
     }
+
     const login = (req, res) => {
         var email = req.body.email;
 
