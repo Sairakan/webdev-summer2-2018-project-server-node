@@ -25,6 +25,6 @@ var orderSchema = mongoose.Schema({
             'CANCELLED'
         ]
     }
-}, { collection: 'inventory' });
+}, { collection: 'order' });
 
 module.exports = orderSchema;

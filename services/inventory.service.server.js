@@ -52,6 +52,11 @@ module.exports = (app) => {
             .then(inventory => res.send(inventory));
     }
 
+    function findInventoriesWithProduct(req, res) {
+        inventoryModel.findInventoriesWithProduct(req.params.productId)
+            .then(inventories => res.send(inventories));
+    }
+
     app.post('/api/inventory', createInventory);
     app.get('/api/inventory/:userId', findInventoryByOwner);
     app.put('/api/inventory/:inventoryId', updateInventory);
@@ -61,4 +66,5 @@ module.exports = (app) => {
     app.delete('/api/inventory/:inventoryId/product/:productId', deleteProductFromInventory);
     app.get('/api/inventory/item/:id', findItemInInventory);
     app.put('/api/inventory/:inventoryId/item/:id', updateInventoryProduct);
+    app.get('/api/inventory/product/:productId', findInventoriesWithProduct);
 }
