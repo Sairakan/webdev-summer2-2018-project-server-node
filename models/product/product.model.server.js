@@ -7,7 +7,7 @@ function createProduct(product) {
 }
 
 function findProductById(productId) {
-    return productModel.find({ _id: productId });
+    return productModel.findOne({ _id: productId });
 }
 
 function updateProduct(productId, newProduct) {
