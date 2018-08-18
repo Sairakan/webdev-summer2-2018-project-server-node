@@ -39,14 +39,4 @@ module.exports = (app) => {
     app.delete('/api/product/:productId', deleteProduct);
     app.get('/api/product/ocpc/:ocpc', findProductByOCPC);
 
-    // let fetch = require('node-fetch');
-    // //  initialization
-    // fetch('https://api.otreeba.com/v1/products?count=50')
-    //     .then(response => response.json())
-    //     .then(list => {
-    //         for (let product of list.data) {
-    //             product.active = false;
-    //             productModel.createProduct(product);
-    //         }
-    //     });
 }

@@ -7,7 +7,7 @@ function createProduct(product) {
 }
 
 function findProductById(productId) {
-    return productModel.findOne({ _id: productId });
+    return productModel.find({ _id: productId });
 }
 
 function updateProduct(productId, newProduct) {
@@ -19,11 +19,11 @@ function deleteProduct(productId) {
 }
 
 function findAllProducts() {
-    return productModel.find().distinct('ocpc').exec();
+    return productModel.find();
 }
 
 function findProductByOCPC(ocpc) {
-    return productModel.find({ ocpc: ocpc });
+    return productModel.find({ocpc: ocpc});
 }
 
 function setActive(productId) {

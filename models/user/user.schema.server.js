@@ -6,6 +6,11 @@ var userSchema = mongoose.Schema({
     firstName: String,
     lastName: String,
     phone: Number,
+    street:String,
+    city:String,
+    state:String,
+    zip:Number,
+    profileImage:String,
     userType: {
         type: String,
         enum: [
