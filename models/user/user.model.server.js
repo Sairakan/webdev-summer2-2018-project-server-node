@@ -15,6 +15,7 @@ const findUserByCredentials = (username, password) => {
     return userModel.findOne({ username: username, password: password });
 }
 const createUser = (user) => {
+    console.log(user);
     return userModel.create(user);
 }
 const deleteUser = (userId) => {
