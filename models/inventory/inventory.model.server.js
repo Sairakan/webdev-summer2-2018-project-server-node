@@ -48,7 +48,17 @@ function findItemInInventory(id) {
 function updateInventoryProduct(inventoryId, itemId, product) {
     return this.deleteProductFromInventory(inventoryId, itemId)
         .then(inv => this.addProductToInventory(inventoryId, product))
+}
 
+function subtractProductFromInventory(ownerId, productId, amount) {
+    return inventoryModel.update({owner: ownerId, 'items.product': productId},
+        {$inc: {'items.$.count': -amount}}, (err, res) => {})
+}
+
+function restock(order) {
+    for (let item of order.items) {
+        
+    }
 }
 
 module.exports = {
@@ -61,5 +71,7 @@ module.exports = {
     addProductToInventory,
     deleteProductFromInventory,
     findItemInInventory,
-    updateInventoryProduct
+    updateInventoryProduct,
+    subtractProductFromInventory,
+    restock
 };

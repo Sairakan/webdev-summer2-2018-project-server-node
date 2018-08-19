@@ -1,8 +1,12 @@
 module.exports = (app) => {
 
     let orderModel = require('../models/order/order.model.server');
+    let inventoryModel = require('../models/inventory/inventory.model.server');
 
     function createOrder(req, res) {
+        for (let item of req.body.items) {
+            inventoryModel.subtractProductFromInventory(req.body.receiver, item.product, item.count);
+        }
         orderModel.createOrder(req.body)
             .then(order => res.send(order));
     }
@@ -42,6 +46,17 @@ module.exports = (app) => {
             .then(result => res.send(result));
     }
 
+    function cancelOrder(req, res) {
+        inventoryModel.restock(req.body);
+        orderModel.cancelOrder(req.body._id)
+            .then(result => res.send(result));
+    }
+
+    function fulfillOrder(req, res) {
+        orderModel.fulfillOrder(req.body._id)
+            .then(result => res.send(result));
+    }
+
     function deleteOrder(req, res) {
         orderModel.deleteOrder(req.params.orderId)
             .then(result => res.send(result));
@@ -53,6 +68,8 @@ module.exports = (app) => {
     app.get('/api/order/from/:userId', findOrdersFromUser);
     app.get('/api/order/to/:userId', findOrdersToUser);
     app.put('/api/order/:orderId', updateOrderStatus);
+    app.put('/api/order/:orderId/cancel', cancelOrder);
+    app.put('/api/order/:orderId/fulfill', fulfillOrder);
     app.delete('/api/order/:orderId', deleteOrder);
     app.get('/api/order/from/:userId/status/:status', findOrdersofStatusFromUser);
     app.get('/api/order/to/:userId/status/:status', findOrdersofStatusToUser);
