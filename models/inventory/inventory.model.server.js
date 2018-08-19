@@ -56,8 +56,10 @@ function subtractProductFromInventory(ownerId, productId, amount) {
 }
 
 function restock(order) {
+    console.log(order)
     for (let item of order.items) {
-        
+        inventoryModel.update({owner: order.receiver._id, 'items.product': item.product._id},
+        {$inc: {'items.$.count': item.count}}, (err, res) => {})
     }
 }
 

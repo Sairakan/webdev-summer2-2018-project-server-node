@@ -64,12 +64,12 @@ module.exports = (app) => {
 
     app.post('/api/order', createOrder);
     app.get('/api/order', findAllOrders);
+    app.put('/api/order/cancel', cancelOrder);
+    app.put('/api/order/fulfill', fulfillOrder);
     app.get('/api/order/:orderId', findOrderById);
     app.get('/api/order/from/:userId', findOrdersFromUser);
     app.get('/api/order/to/:userId', findOrdersToUser);
     app.put('/api/order/:orderId', updateOrderStatus);
-    app.put('/api/order/:orderId/cancel', cancelOrder);
-    app.put('/api/order/:orderId/fulfill', fulfillOrder);
     app.delete('/api/order/:orderId', deleteOrder);
     app.get('/api/order/from/:userId/status/:status', findOrdersofStatusFromUser);
     app.get('/api/order/to/:userId/status/:status', findOrdersofStatusToUser);
