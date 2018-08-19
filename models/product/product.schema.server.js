@@ -21,7 +21,8 @@ var productSchema = mongoose.Schema({
     cbd: String,
     cannabis: String,
     hashOil: String,
-    active: Boolean
+    listedByRetailer: Boolean,
+    listedByProducer: Boolean
 }, { collection: 'product' });
 
 module.exports = productSchema;
