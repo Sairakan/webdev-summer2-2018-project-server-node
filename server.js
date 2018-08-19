@@ -4,8 +4,7 @@ mongoose.connect('mongodb://weedhub:weedhub22@ds121332.mlab.com:21332/weedhub', 
 var express = require('express')
 var app = express()
 
-const origin = "http://localhost:4200";
-// const origin = "https://webdev-client-angular-jteng.herokuapp.com";
+const origin = (process.env.PORT || 'http://localhost:4200');
 
 app.use((req, res, next) => {
     res.header("Access-Control-Allow-Origin",
@@ -41,7 +40,6 @@ app.use(bodyParser.urlencoded({
 require('./services/user.service.server')(app);
 require('./services/product.service.server')(app);
 require('./services/inventory.service.server')(app);
-// require('./services/shopping-cart.service.server')(app);
 require('./services/order.service.server')(app);
 
 app.listen(process.env.PORT || 4000);
