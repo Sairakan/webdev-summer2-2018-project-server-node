@@ -22,8 +22,18 @@ module.exports = (app) => {
             .then(orders => res.send(orders));
     }
 
+    function findOrdersofStatusFromUser(req, res) {
+        orderModel.findOrdersofStatusFromUser(req.params.userId, req.params.status)
+            .then(orders => res.send(orders));
+    }
+
     function findOrdersToUser(req, res) {
         orderModel.findOrdersToUser(req.params.userId)
+            .then(orders => res.send(orders));
+    }
+
+    function findOrdersofStatusToUser(req, res) {
+        orderModel.findOrdersofStatusToUser(req.params.userId, req.params.status)
             .then(orders => res.send(orders));
     }
 
@@ -44,4 +54,6 @@ module.exports = (app) => {
     app.get('/api/order/to/:userId', findOrdersToUser);
     app.put('/api/order/:orderId', updateOrderStatus);
     app.delete('/api/order/:orderId', deleteOrder);
+    app.get('/api/order/from/:userId/status/:status', findOrdersofStatusFromUser);
+    app.get('/api/order/to/:userId/status/:status', findOrdersofStatusToUser);
 }
