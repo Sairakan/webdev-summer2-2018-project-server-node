@@ -89,6 +89,12 @@ module.exports = (app) => {
             .then(() => res.sendStatus(200));
     }
 
+    function updateShoppingCart(req, res) {
+        let user = req.session['currentUser'];
+        userModel.updateShoppingCart(user._id, req.body)
+            .then(cart => res.send(cart));
+    }
+
     app.post('/api/login', login);
     app.post('/api/register', register);
     app.post('/api/logout', logout);
@@ -99,4 +105,5 @@ module.exports = (app) => {
     app.get('/api/user/:userId', findUserById);
     app.get('/api/register/:username', findUserByUsername);
     app.delete('/api/profile/:userId', deleteUser);
+    app.put('/api/cart', updateShoppingCart);
 }

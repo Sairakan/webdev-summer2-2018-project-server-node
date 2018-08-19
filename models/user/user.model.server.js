@@ -27,11 +27,15 @@ const updateUser = (userId, newUser) => {
 }
 
 const findUserByEmail = (email) => {
-    return userModel.findOne({ email: email});
+    return userModel.findOne({ email: email });
 }
 
 const findUserByEmailAndPassword = (email, password) => {
-    return userModel.findOne({ email: email, password: password});
+    return userModel.findOne({ email: email, password: password });
+}
+
+function updateShoppingCart(userId, cart) {
+    return userModel.update({ _id: userId }, { $set: { shoppingCart: cart } })
 }
 
 module.exports = {
@@ -43,5 +47,6 @@ module.exports = {
     deleteUser,
     updateUser,
     findUserByEmail,
-    findUserByEmailAndPassword
+    findUserByEmailAndPassword, 
+    updateShoppingCart
 };
