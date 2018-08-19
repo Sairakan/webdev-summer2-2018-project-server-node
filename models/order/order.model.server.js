@@ -7,7 +7,10 @@ function createOrder(order) {
 }
 
 function findAllOrders() {
-    return orderModel.find();
+    return orderModel.find()
+        .populate('requester')
+        .populate('receiver')
+        .populate('items');
 }
 
 function findOrderById(orderId) {
