@@ -2,8 +2,13 @@ module.exports = (app) => {
 
     let productModel = require('../models/product/product.model.server');
 
-    function findAllActiveProducts(req, res) {
-        return productModel.findAllActiveProducts()
+    function findListedByRetailer(req, res) {
+        return productModel.findListedByRetailer()
+            .then(products => res.send(products));
+    }
+
+    function findListedByProducer(req, res) {
+        return productModel.findListedByProducer()
             .then(products => res.send(products));
     }
 
@@ -37,7 +42,8 @@ module.exports = (app) => {
             .then(result => res.send(result));
     }
 
-    app.get('/api/product/active', findAllActiveProducts);
+    app.get('/api/product/retailer', findListedByRetailer);
+    app.get('/api/product/producer', findListedByProducer);
     app.get('/api/product', findAllProducts);
     app.get('/api/product/:productId', findProductById);
     app.post('/api/product', createProduct);

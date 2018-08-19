@@ -26,12 +26,20 @@ function findProductByOCPC(ocpc) {
     return productModel.find({ocpc: ocpc});
 }
 
-function setActive(productId) {
-    return productModel.update({ '_id': productId }, { $set: { 'active': true } }, (err, raw) => { });
+function setListedByRetailer(productId) {
+    return productModel.update({ '_id': productId }, { $set: { 'listedByRetailer': true } }, (err, raw) => { });
 }
 
-function findAllActiveProducts() {
-    return productModel.find({ active: true });
+function findListedByRetailer() {
+    return productModel.find({ listedByRetailer: true });
+}
+
+function setListedByProducer(productId) {
+    return productModel.update({ '_id': productId }, { $set: { 'listedByProducer': true } }, (err, raw) => { });
+}
+
+function findListedByProducer() {
+    return productModel.find({ listedByProducer: true });
 }
 
 module.exports = {
@@ -41,6 +49,8 @@ module.exports = {
     deleteProduct,
     findAllProducts,
     findProductByOCPC,
-    setActive,
-    findAllActiveProducts
+    setListedByRetailer,
+    findListedByRetailer,
+    setListedByProducer,
+    findListedByProducer
 };
