@@ -14,7 +14,8 @@ var shoppingCartSchema = mongoose.Schema({
             type: mongoose.Schema.Types.ObjectId,
             ref: 'ProductModel'
         },
-        count: Number
+        count: Number,
+        price: Number
     }]
 }, { collection: 'shopping-cart' });
 
