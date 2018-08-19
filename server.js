@@ -41,7 +41,7 @@ app.use(bodyParser.urlencoded({
 require('./services/user.service.server')(app);
 require('./services/product.service.server')(app);
 require('./services/inventory.service.server')(app);
-require('./services/shopping-cart.service.server')(app);
+// require('./services/shopping-cart.service.server')(app);
 require('./services/order.service.server')(app);
 
 app.listen(process.env.PORT || 4000);
