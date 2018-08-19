@@ -55,6 +55,12 @@ function subtractProductFromInventory(ownerId, productId, amount) {
         {$inc: {'items.$.count': -amount}}, (err, res) => {})
 }
 
+function restock(order) {
+    for (let item of order.items) {
+        
+    }
+}
+
 module.exports = {
     createInventory,
     findAllInventories,
@@ -66,5 +72,6 @@ module.exports = {
     deleteProductFromInventory,
     findItemInInventory,
     updateInventoryProduct,
-    subtractProductFromInventory
+    subtractProductFromInventory,
+    restock
 };
