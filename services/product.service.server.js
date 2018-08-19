@@ -12,6 +12,11 @@ module.exports = (app) => {
             .then(products => res.send(products));
     }
 
+    function findAllProducts(req, res) {
+        return productModel.findAllProducts()
+            .then(products => res.send(products));
+    }
+
     function findProductById(req, res) {
         return productModel.findProductById(req.params.productId)
             .then(product => res.send(product));
@@ -39,10 +44,12 @@ module.exports = (app) => {
 
     app.get('/api/product/retailer', findListedByRetailer);
     app.get('/api/product/producer', findListedByProducer);
+    app.get('/api/product', findAllProducts);
     app.get('/api/product/:productId', findProductById);
     app.post('/api/product', createProduct);
     app.put('/api/product/:productId', updateProduct);
     app.delete('/api/product/:productId', deleteProduct);
+    app.get('/api/product/ocpc/:ocpc', findProductByOCPC);
 
 
     // let fetch = require('node-fetch');
