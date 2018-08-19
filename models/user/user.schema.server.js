@@ -11,6 +11,18 @@ var userSchema = mongoose.Schema({
     state:String,
     zip:Number,
     profileImage:String,
+    shoppingCart: [{
+        retailer: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'UserModel'
+        },
+        product: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'ProductModel'
+        },
+        count: Number,
+        price: Number
+    }],
     userType: {
         type: String,
         enum: [
