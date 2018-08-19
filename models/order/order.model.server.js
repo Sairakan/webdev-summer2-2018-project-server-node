@@ -14,12 +14,28 @@ function findOrderById(orderId) {
     return orderModel.find({ _id: orderId });
 }
 
+function findOrdersofStatusFromUser(userId, status) {
+    return orderModel
+        .find({ requester: userId, status: status })
+        .populate('items.product')
+        .populate('receiver')
+        .exec();
+}
+
 function findOrdersFromUser(userId) {
     return orderModel.find({ requester: userId });
 }
 
 function findOrdersToUser(userId) {
     return orderModel.find({ receiver: userId });
+}
+
+function findOrdersofStatusToUser(userId, status) {
+    return orderModel
+        .find({ receiver: userId, status: status })
+        .populate('items.product')
+        .populate('requester')
+        .exec();
 }
 
 function updateOrderStatus(orderId, status) {
@@ -37,5 +53,7 @@ module.exports = {
     findOrdersFromUser,
     findOrdersToUser,
     updateOrderStatus,
-    deleteOrder
+    deleteOrder,
+    findOrdersofStatusFromUser,
+    findOrdersofStatusToUser
 };
