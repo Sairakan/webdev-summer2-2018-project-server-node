@@ -92,7 +92,13 @@ module.exports = (app) => {
     function updateShoppingCart(req, res) {
         let user = req.session['currentUser'];
         userModel.updateShoppingCart(user._id, req.body)
-            .then(cart => res.send(cart));
+            .then(() => {
+                userModel.findUserById(user._id)
+                    .then(user => {
+                        req.session['currentUser'] = user;
+                        res.send(user);
+                    })
+            });
     }
 
     app.post('/api/login', login);
