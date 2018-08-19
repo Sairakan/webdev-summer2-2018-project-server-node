@@ -27,7 +27,7 @@ module.exports = (app) => {
     }
 
     function addProductToInventory(req, res) {
-        productModel.setActive(req.body);
+        console.log(req.body)
         inventoryModel.addProductToInventory(req.params.inventoryId, req.body)
             .then(inventory => res.send(inventory));
     }

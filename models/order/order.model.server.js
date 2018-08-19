@@ -39,7 +39,7 @@ function findOrdersofStatusToUser(userId, status) {
 }
 
 function updateOrderStatus(orderId, status) {
-    return orderModel.update({ _id: orderId }, { $set: status });
+    return orderModel.update({ _id: orderId }, { $set: {status} });
 }
 
 function deleteOrder(orderId) {
