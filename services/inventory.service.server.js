@@ -1,12 +1,8 @@
 module.exports = (app) => {
 
     let inventoryModel = require('../models/inventory/inventory.model.server');
-    let productModel = require('../models/product/product.model.server');
 
     function createInventory(req, res) {
-        for (let item of req.body.items) {
-            productModel.setActive(item.product);
-        }
         inventoryModel.createInventory(req.body)
             .then(inventory => res.send(inventory));
     }
@@ -27,7 +23,6 @@ module.exports = (app) => {
     }
 
     function addProductToInventory(req, res) {
-        productModel.setActive(req.body);
         inventoryModel.addProductToInventory(req.params.inventoryId, req.body)
             .then(inventory => res.send(inventory));
     }
