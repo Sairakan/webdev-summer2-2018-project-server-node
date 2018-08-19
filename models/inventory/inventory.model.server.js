@@ -51,6 +51,12 @@ function updateInventoryProduct(inventoryId, itemId, product) {
 
 }
 
+function restock(order) {
+    for (let item of order.items) {
+        
+    }
+}
+
 module.exports = {
     createInventory,
     findAllInventories,
@@ -61,5 +67,6 @@ module.exports = {
     addProductToInventory,
     deleteProductFromInventory,
     findItemInInventory,
-    updateInventoryProduct
+    updateInventoryProduct,
+    restock
 };

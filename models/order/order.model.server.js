@@ -42,6 +42,14 @@ function updateOrderStatus(orderId, status) {
     return orderModel.update({ _id: orderId }, { $set: status });
 }
 
+function cancelOrder(orderId) {
+    return orderModel.update({ _id: orderId }, { $set: { status: 'CANCELLED' } })
+}
+
+function fulfillOrder(orderId) {
+    return orderModel.update({ _id: orderId }, { $set: { status: 'FULFILLED' } })
+}
+
 function deleteOrder(orderId) {
     return orderModel.remove({ _id: orderId });
 }
@@ -53,6 +61,8 @@ module.exports = {
     findOrdersFromUser,
     findOrdersToUser,
     updateOrderStatus,
+    cancelOrder,
+    fulfillOrder,
     deleteOrder,
     findOrdersofStatusFromUser,
     findOrdersofStatusToUser
