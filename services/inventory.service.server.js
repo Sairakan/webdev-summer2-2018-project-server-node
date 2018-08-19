@@ -5,7 +5,7 @@ module.exports = (app) => {
 
     function createInventory(req, res) {
         for (let item of req.body.items) {
-            productModel.setActive(item.product);
+            productModel.setListedByRetailer(item.product);
         }
         inventoryModel.createInventory(req.body)
             .then(inventory => res.send(inventory));

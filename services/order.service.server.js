@@ -1,8 +1,12 @@
 module.exports = (app) => {
 
     let orderModel = require('../models/order/order.model.server');
+    let inventoryModel = require('../models/inventory/inventory.model.server');
 
     function createOrder(req, res) {
+        for (let item of req.body.items) {
+            inventoryModel.subtractProductFromInventory(req.body.receiver, item.product, item.count);
+        }
         orderModel.createOrder(req.body)
             .then(order => res.send(order));
     }
