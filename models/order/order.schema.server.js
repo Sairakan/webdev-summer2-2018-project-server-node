@@ -25,6 +25,8 @@ var orderSchema = mongoose.Schema({
             'CANCELLED'
         ]
     }
-}, { collection: 'order' });
+},
+    {timestamps: true},
+    { collection: 'order' });
 
 module.exports = orderSchema;
