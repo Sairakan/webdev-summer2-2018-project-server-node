@@ -41,6 +41,11 @@ module.exports = (app) => {
             .then(orders => res.send(orders));
     }
 
+    function findOrdersForBuyerRetailer(req, res) {
+        orderModel.findOrdersForBuyerRetailer(req.params.receiver, req.params.requester)
+            .then(orders => res.send(orders));
+    }
+
     function updateOrderStatus(req, res) {
         orderModel.updateOrderStatus(req.params.orderId, req.body)
             .then(result => res.send(result));
@@ -73,4 +78,5 @@ module.exports = (app) => {
     app.delete('/api/order/:orderId', deleteOrder);
     app.get('/api/order/from/:userId/status/:status', findOrdersofStatusFromUser);
     app.get('/api/order/to/:userId/status/:status', findOrdersofStatusToUser);
+    app.get('/api/order/to/:receiver/from/:requester', findOrdersForBuyerRetailer);
 }

@@ -26,11 +26,11 @@ function findOrdersofStatusFromUser(userId, status) {
 }
 
 function findOrdersFromUser(userId) {
-    return orderModel.find({ requester: userId });
+    return orderModel.find({ requester: userId }).populate('receiver').exec();
 }
 
 function findOrdersToUser(userId) {
-    return orderModel.find({ receiver: userId });
+    return orderModel.find({ receiver: userId }).populate('requester').exec();
 }
 
 function findOrdersofStatusToUser(userId, status) {
@@ -38,6 +38,13 @@ function findOrdersofStatusToUser(userId, status) {
         .find({ receiver: userId, status: status })
         .populate('items.product')
         .populate('requester')
+        .exec();
+}
+
+function findOrdersForBuyerRetailer(receiver, requester) {
+    return orderModel
+        .find({ receiver: receiver, requester: requester })
+        .populate('items.product')
         .exec();
 }
 
@@ -68,5 +75,6 @@ module.exports = {
     fulfillOrder,
     deleteOrder,
     findOrdersofStatusFromUser,
-    findOrdersofStatusToUser
+    findOrdersofStatusToUser,
+    findOrdersForBuyerRetailer
 };
