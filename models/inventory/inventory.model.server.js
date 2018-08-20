@@ -8,11 +8,16 @@ function createInventory(inventory) {
 
 function findAllInventories() {
     return inventoryModel.find()
-        .populate('items.product');
+        .populate('items.product')
+        .populate('owner');
 }
 
 function findInventoryByOwner(ownerId) {
     return inventoryModel.find({ owner: ownerId }).populate('items.product').exec();
+}
+
+function findInventoryById(id) {
+    return inventoryModel.findOne({_id: id});
 }
 
 function findInventoriesWithProduct(productId) {
@@ -56,7 +61,6 @@ function subtractProductFromInventory(ownerId, productId, amount) {
 }
 
 function restock(order) {
-    console.log(order)
     for (let item of order.items) {
         inventoryModel.update({owner: order.receiver._id, 'items.product': item.product._id},
         {$inc: {'items.$.count': item.count}}, (err, res) => {})
@@ -67,6 +71,7 @@ module.exports = {
     createInventory,
     findAllInventories,
     findInventoryByOwner,
+    findInventoryById,
     findInventoriesWithProduct,
     updateInventory,
     deleteInventory,

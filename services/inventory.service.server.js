@@ -2,6 +2,7 @@ module.exports = (app) => {
 
     let inventoryModel = require('../models/inventory/inventory.model.server');
     let productModel = require('../models/product/product.model.server');
+    let userModel = require('../models/user/user.model.server');
 
     function createInventory(req, res) {
         for (let item of req.body.items) {
@@ -27,6 +28,17 @@ module.exports = (app) => {
     }
 
     function addProductToInventory(req, res) {
+        inventoryModel.findInventoryById(req.params.inventoryId)
+            .then(inventory => {
+                userModel.findUserById(inventory.owner)
+                    .then(user => {
+                        if (user.userType === 'PRODUCER') {
+                            productModel.setListedByProducer(req.body._id);
+                        } else if (user.userType === 'RETAILER') {
+                            productModel.setListedByRetailer(req.body._id);
+                        }
+                    });
+            });
         inventoryModel.addProductToInventory(req.params.inventoryId, req.body)
             .then(inventory => res.send(inventory));
     }
@@ -47,7 +59,7 @@ module.exports = (app) => {
     }
 
     function updateInventoryProduct(req, res) {
-        inventoryModel.updateInventoryProduct(req.params.inventoryId, req.params.id, req.body)
+        inventoryModel.updateInventoryProduct(req.params.inventoryId, req.params.itemId, req.body)
             .then(inventory => res.send(inventory));
     }
 
@@ -64,6 +76,6 @@ module.exports = (app) => {
     app.get('/api/inventory', findAllInventories);
     app.delete('/api/inventory/:inventoryId/product/:productId', deleteProductFromInventory);
     app.get('/api/inventory/item/:id', findItemInInventory);
-    app.put('/api/inventory/:inventoryId/item/:id', updateInventoryProduct);
+    app.put('/api/inventory/:inventoryId/item/:itemId', updateInventoryProduct);
     app.get('/api/inventory/product/:productId', findInventoriesWithProduct);
 }
