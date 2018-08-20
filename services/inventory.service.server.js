@@ -1,6 +1,7 @@
 module.exports = (app) => {
 
     let inventoryModel = require('../models/inventory/inventory.model.server');
+    let productModel = require('../models/product/product.model.server');
 
     function createInventory(req, res) {
         for (let item of req.body.items) {
